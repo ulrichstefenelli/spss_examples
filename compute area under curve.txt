@@ -1,0 +1,47 @@
+
+* Story: A researcher collects data repeatedly. 
+* Now he wants to calculate the area under the time-curve. 
+
+* Basic Idea: Area-under-the-curve data often contain interesting or 'better' information. 
+* Sometimes groups differ only in their area under a curve but not at specific points of measurement.
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Press Ctrl r to run the syntax.
+
+
+************AUC-calculation (x=time, y=value)***************.
+data list free /y1 y2 y3 y4 y5.
+begin data.
+1 2 3 2 1
+1 3 5 3 1
+end data.
+
+Comp x1=1.
+Comp x2=2.
+Comp x3=3.
+Comp x4=4.
+Comp x5=5.
+Vector x = x1 to x5.
+Vector y = y1 to y5.
+Comp auc=0.
+
+Loop i=1 to 4.
+    comp auc = auc + (x(i + 1) - x(i)) / 2 * (y(i) + y(i + 1)).
+end loop.
+List.
+
+
+****AUC, if time (x) is entered in one column**********.
+data list free /x y.
+begin data
+1 1
+2 2
+3 3
+end data.
+comp total=1.
+comp auc = (x - lag(x)) / 2 * (y + lag(y)).
+aggreg /out * /break total /auc = sum(auc).
+list.

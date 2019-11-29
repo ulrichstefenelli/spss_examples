@@ -1,0 +1,36 @@
+
+* Story: A researcher has data rows containing coded answers (for example with 1 and 2),
+* but some of his subjects responded in written sentences, 
+* all the data were entered into a string field.
+* But now he wants to analyze only the coded data.
+
+* Basic Idea: Sometimes data are deliverd "as reported", but not always optimal for analysis. 
+* In my opinion there is no other way to check if an entry in a string column is numeric nor not.
+* Any better suggestion is welcomed.
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Press Ctrl r to run the syntax.
+
+data list fixed /subject 1 rating 2-50 (a).
+begin data
+1 1
+2 nothing for me!
+3 2
+4 I quit this survey....
+5 3
+6 2
+7 1
+8 2
+9 sorry, but can't answer this question....
+end data.
+list all.
+
+loop i=1 to len(rating).	
+	if substr(rating,i,1)<>' ' and not(substr(rating,i,1)>='0' and substr(rating,i,1)<='9') and substr(rating,i,1)<>'-'  rating=''. 
+end loop.
+comp rating_ = number(rating,f14).
+freq rating_.
+

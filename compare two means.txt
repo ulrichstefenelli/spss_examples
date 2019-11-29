@@ -1,0 +1,29 @@
+
+* Story: A researcher wants to compare two groups using mean values.
+* Question is whether one group has higher values (a higher data center, i.e. mean).
+
+* Basic Idea: The comparison of two groups in indicators from which the calculation of mean
+* values is useful is a quite classical question.
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Press Ctrl r to run the syntax. 
+
+data list free /group score.
+begin data
+1 2
+1 3 
+1 1 
+1 1 
+2 4 
+2 4 
+2 3 
+2 2 
+2 3 
+end data.
+value labels group 1 'men' 2 'women'.
+t-test /var score /groups group. 
+
+* 5. Look at the results. The p-value in the column 'Sig. (2-tailed)' is well below 0.05 which indicates a significantly higher mean in women.

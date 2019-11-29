@@ -1,0 +1,45 @@
+
+* Story: A researcher gets higly desired data from a collegue. 
+* But too late he notices that they are flipped, that is
+* where he expected the data being in rows they are in columns. 
+
+* Basic Idea: The transforming of data is often needed. Sometimes some machines deliver data in a format 
+* which you don't want to use or which you didn't expect. But SPSS delivers some powerful procedures to switch the data.
+* But at the first glance they are not easy to understand. Just try it.
+* Note this example only works with newer versions of SPSS.
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Press Ctrl r to run the syntax.
+
+
+* There are 5 points of measurement over time (var_t1 to var_t5) 
+* and we have the tremendous sample of 5 subjects who - deserving thanks - delivered
+* data repeatedly and completely.
+
+data list free /subject var_t1 to var_t5.
+begin data.
+1 1 2 3 4 5
+2 5 4 3 2 1
+3 1 2 3 4 5
+4 1 2 3 4 5
+5 5 4 3 2 1
+end data.
+formats all (f1).
+list.
+
+/* turns all data collected over time into one column named 'var', adds one column 'time'.
+varstocases /make var from var_t1 to var_t5
+            /index = time               
+            /keep subject var_t1 to var_t5.
+list.
+
+/* and turns it all back.
+casestovars /id = subject 
+            /index = time 
+            /rename var = var_t 
+            /separator = ''.
+
+list.

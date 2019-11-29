@@ -1,0 +1,31 @@
+
+* Story: A researcher wants to format his numbers. He thinks 2 digits after the dot are enough.
+
+* Basic Idea: The formating of numbers isn't easy. There is a format function in SPSS. But be aware 
+* this function formats only numbers for the display - if you list your data for example - but it does not
+* affect the original data in the SPSS data spreadsheet.
+* I know the function named RND but it rounds numbers only to integers.
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Press Ctrl r to run the syntax.
+
+data list free /mynumber.
+begin data
+1.453424
+1.468259
+2.562483
+2.684560
+end data.
+
+list all.
+
+**the format function affects only the list command, but the original data are kept**.
+**look into the data line of SPSSs data editor
+formats mynumber (f5.2).
+
+**alternative**.
+compute new_ = number(string(mynumber,f4.2),f14).
+list all.

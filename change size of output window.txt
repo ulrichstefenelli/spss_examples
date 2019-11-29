@@ -1,0 +1,24 @@
+
+' Story: You just want to change the size of the output window and force the data window to dissapear.
+
+' Basic Idea: The idea is to manage you desktop especially if you are working with your text editor
+' when you report results.
+
+' What to do with this example.
+' 1. Open in SPSS menu file|new|script a new window.
+' 2. Copy this example into that window.
+' 3. Press F5 to run the script.
+
+Sub Main()
+	Set d = objSpssApp.Documents
+	Set o = d.GetOutputDoc(0)
+
+	o.Left = 800
+	o.Top = 50
+	o.Width = 200
+	o.Visible = True
+
+	With d.GetDataDoc(0)
+		.WindowState=SpssMinimized
+	End With
+End Sub

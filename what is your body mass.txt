@@ -1,0 +1,31 @@
+
+* Story: A researcher thinks that weight in kilogramm using as risk factor for heart attacks
+* not very predictive. Insteadt he wants to calculate the body mass. 
+* He hopes that body mass (may be in combination with other risks like smoking and drinking habits)
+* predicts the heart attack risk much better.
+
+* Basic Idea: This transformation from weight and height is often needed in medical studies.
+* Sometimes it appears to be a better predictor of risks than the weight of a subject.
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Press Ctrl r to run the syntax.
+
+data list free /subject weight height.
+begin data.
+1 55 1.78
+2 65 1.78
+3 89 1.92
+4 78 1.65
+5 99 1.65
+end data.
+formats all (f4.2).
+
+*****bmi is the abbreviation of body mass index********.
+Compute bmi = weight / height**2.
+string normal (a20).
+recode bmi (lowest thru 18.5 = 'underweight')(18.51 thru 24.99='normal weight')
+           (25.0 thru 29.99='overweight')(30 thru highest='obesity') into normal.
+list.

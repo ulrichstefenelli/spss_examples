@@ -1,0 +1,29 @@
+
+* Story: A researcher wants to calculate a simple correlation, say between patient age 
+* and complications which usually happen during difficult operations.
+
+* Basic Idea: Correlations are basic statistics. They express predictability.
+* High correlation coefficients (between 0.7 and 1.0) allow good predictions.
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Press Ctrl r to run the syntax.
+
+data list free /age complic.
+begin data.
+31 2
+43 4
+55 6
+84 11
+43 6
+47 8
+94 9
+74 6
+end data.
+
+npar corr age with complic.
+
+* 5. Conclusion: The correlation is quite high, allowing the prediction of higher complication counts with
+*    increasing age.

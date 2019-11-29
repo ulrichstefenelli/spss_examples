@@ -1,0 +1,26 @@
+
+' Story: Sometimes a programming language like SPSS's Sax Basic provides better alternatives,
+' or is at least more time saving.
+
+' Basic idea: I often write programs in sax basic, and often syntax functions are needed (like save outfile
+' or get file)
+
+' What To Do With this example.
+' 1. Open In SPSS menu file|New|script a New window.
+' 2. Copy this example into that window.
+' 3. Press F5 To run the script.
+
+Sub Main
+	br = Chr(10)
+	With objSpssApp
+		.ExecuteCommands "data list free /group sex age height weight." + br + _
+		                 "begin data." + br + _
+		                 "1 2 32 188 95"  + br + _
+		                 "2 1 44 148 75"  + br + _
+		                 "3 1 57 168 55"  + br + _
+		                 "end data."  + br + _
+				 "list.",True
+	End With
+End Sub
+
+

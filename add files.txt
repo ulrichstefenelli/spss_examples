@@ -1,0 +1,46 @@
+* Story: A researcher has two files and he wants to append the second one after the first. 
+
+* Basic Idea: The idea is to change file adding more data lines to it or adding new groups. 
+* Sometimes you're getting access to data of an interesting control group which makes it easier to 
+* evaluate and interprete your data.
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Verify that you see the syntax printed in the output (edit|options|viewer|item log and display commands in the log).
+* 5. Press Ctrl r to run the syntax.
+
+* generates the first file (here: with 5 lines with random numbers between 1 and 100).
+data list free /number random1 random2.
+begin data.
+1 1 1
+end data.
+compute group=1.
+loop number=1 to 5.	
+	comp random1 = rv.uniform(1,100).
+	comp random2 = rv.uniform(1,100).
+	xsave out 'c:\temp1.sav'.
+end loop.
+exec.
+get file 'c:\temp1.sav'.
+list.
+
+* generates the 2nd file (here: with 5 lines random with numbers between 1 and 100).
+data list free /number random1 random2.
+begin data.
+1 1 1
+end data.
+compute group=2.
+loop number=1 to 5.	
+	comp random1 = rv.uniform(1,100).
+	comp random2 = rv.uniform(1,100).
+	xsave out 'c:\temp2.sav'.
+end loop.
+exec.
+get file 'c:\temp2.sav'.
+list.
+
+
+add files /file 'c:\temp1.sav' /file 'c:\temp2.sav'.
+list.

@@ -1,0 +1,34 @@
+
+* Story: A researcher has data with different columns, all containing dates but in different formats.
+* He wants to calculate date differences to check how long his patients were 
+* observed. 
+
+* Basic Idea: Date and time calculation are often needed, you often need to know only some basic principles
+* to succeed in calculating time differences. 
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Press Ctrl r to run the syntax.
+
+
+data list fixed /subject 1 date1 3-12 (a) date2 14-23 (a).
+begin data
+1 12/01/2003 31.12.2003
+1 12/02/2003 31.12.2003
+1 12/03/2003 31.12.2003
+end data.
+
+**************converts american 10-digit date1 into calculable date and formats it***.
+compute date1_ = number(date1,adate10).
+formats date1_ (edate10).
+
+**************converts english 10-digit date1 into calculable date and formats it***.
+compute date2_ = number(date2,edate10).
+formats date2_ (edate10).
+
+****compute time difference and convert it to days, because it is in seconds********.
+compute days = (date2_ - date1_)/(24*60*60).
+
+list.

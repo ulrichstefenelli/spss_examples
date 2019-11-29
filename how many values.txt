@@ -1,0 +1,44 @@
+
+* Story: A researcher asks his study participants to give evaluations on three 20 point scales.
+* At the end of the study he wants to count how many different score values (numbers) were registered.
+
+* Basic Idea: The idea is to check how many numbers can be found over different columns of the 
+* SPSS data editor.
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Press Ctrl r to run the syntax.
+
+data list free /subject score1 to score3.
+begin data
+1  4  3  4 
+2  3 10 19
+3  7  9 16
+4  8  9 11
+5 19 17 12
+6  1  2  3
+end data.
+list all.
+
+**I think there are several possibilities.**
+
+**1st possibility**.
+
+compute total=1.
+mult response /groups=total (score1 to score3 (1,20)) /freq total.
+
+
+**2nd possibility**
+
+vector scores = score1 to score3.
+loop i=1 to 3.
+	comp score = scores(i).
+	xsave outfile 'c:\tmpfile.sav' /keep subject score.
+end loop.
+execute.
+
+get file 'c:\tmpfile.sav'.
+frequency score.
+

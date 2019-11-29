@@ -1,0 +1,44 @@
+
+* Story: A researcher records events over time. In the study I analyzed these were
+* occurring symptoms of a severe disease and this symptoms had to be recorded by a patient
+* in a kind of disease diary. If there was an interval without event a missing was recorded (as dot).
+* Different events seperated by a missing value are by definition separate events.
+* But multiple events (that is with no missing value between them) have to be recorded as one single event.
+* Finally all events have to be counted.
+
+* Example: Look at this line of a single patient. Each hour he noted his sympotom severity.
+* . 1 . . 2 3 4 . 5 6 . . 7 . 8 9 . . 1 2 3 . 4 . 4 . 5 .
+* If there is a dot, in this hour no symptom occurred.
+* If hours are recorded as '234' they have to be interpreted as single event.
+* Sounds easy, doesn't it? But I got a lot of trouble until I struggeled to a solution.
+
+* Basic Idea: The basic idea is to group records, i.e. rows, together
+* using the lag-function and to count the events (mind: not rows!).
+* The data you'll find below are score data.
+* A missing means no event, but a score of 1 means a low symptom score. 4 means a severe event or symptom.
+* The basic idea is to build up a grouping row and to count these grouped rows.
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Press Ctrl r to run the syntax.
+
+data list free /a0 (a1).
+begin data.
+. 1 . . 2 3 4 . 5 6 . . 7 . 8 9 . . 1 2 3 . 4 . 4 . 5 .
+end data.
+variable label a0 'symptom score'.
+recode a0 (convert) into a.
+comp z = 0.
+
+recode a (lo thru hi=1)(sysmis=0) into ak.
+
+if lag(ak)=0 and ak=1 z=1.
+
+create zs = csum(z).
+if sysmis(a) zs = $sysmis.
+
+variable label zs 'events counted'.
+formats a ak z zs (f1).
+exec.

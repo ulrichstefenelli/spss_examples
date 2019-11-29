@@ -1,0 +1,39 @@
+
+* Story: A researcher asks his study participants to give evaluations at begin (score1) and at the end 
+* of a study (score2). He uses a scale with a range of 20 units.
+* Finally he wants to know if anything changed which is true (see the example below).
+* He neither knows weather his data are normally distributed or if it is metric,
+* so he doesn't want to rely on any assumptions
+
+* Basic Idea: The idea of detecting within-group changes or a trend is very popular.
+* A very popular test is Wilcoxon's sign rank test.
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Press Ctrl r to run the syntax.
+
+data list fred /subject score1 score2.
+begin data
+ 1 10 15
+ 2  9 11
+ 3  7 20
+ 4  8 13
+ 5 15 19
+ 6  7 17
+ 7 12 18
+ 8 20 10
+ 9 10 19
+10 12 14
+11 16 19
+12  1  9
+13  4 16
+14 14 18
+15  4 19
+end data.
+npar tests /wilcoxon score1 with score2.
+
+**see median values*.
+freq score1 score2 /format notable /percentils 50.
+

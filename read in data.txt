@@ -1,0 +1,23 @@
+
+* Story: A researcher wants to read in data very quick and just compute a mean or a median value. 
+
+* Basic Idea: The idea is to use the syntax window and the data list command. 
+* For some basic calculations this could be a very quick alternative for you can
+* copy data from Excel with copy and paste.
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Press Ctrl r to run the syntax.
+
+data list free /group sex age.
+begin data
+1 0 93
+1 1 34
+2 0 53
+2 1 48
+end data.
+value labels group 1 'target group' 2 'control group' / sex 0 'men'  1 'women'.
+list all.
+means age /cells mean min median max count.

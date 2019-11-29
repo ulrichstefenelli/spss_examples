@@ -1,0 +1,45 @@
+
+* Story: A researcher has entered his data into SPSS and wants to work with his data. 
+* He wants to generate new data columns which contain results of calculations.
+
+* Basic Idea: The idea is to use the compute syntax to add new columns or change existing ones.
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Press Ctrl r to run the syntax.
+
+data list free /group age sex income.
+begin data
+1 22 0 2793
+1 15 1 3498
+2 27 0 5343
+2 51 1 4824
+end data.
+
+value labels group 1 'target group' 2 'control group' / sex 0 'men'  1 'women'.
+
+*Calculate income subtracting 16% taxes.
+compute income2 = income * 0.84.
+
+*Subtract additional taxes for women only.
+do if sex=1.
+	compute income3 = income2 * 0.9.
+end if.
+
+*change income for employees over 50.
+do if age>50.
+	recode income (4800 thru hi = 4900).
+end if.
+
+*generate new column with strings.
+string sexlabel (a50).
+do if sex=1.
+	compute sexlabel = 'women'.
+else if sex=0.
+	compute sexlabel = 'men'.
+end if.
+execute.
+	
+

@@ -1,0 +1,39 @@
+
+* Story: A researcher wants to look for income if age gender and having kids is looked at
+* in a combined way. He has 3 columns in his data plus a income and wants to look at the income
+* in combined groups.
+
+* Basic Idea: The combination of data is useful if you have many groups and if you need
+* to know the average in each of these groups. 
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Press Ctrl r to run the syntax.
+
+data list free /age30 gender kids income.
+begin data.
+1 1 1 2400
+1 1 2 4600
+1 2 1 5100
+1 2 2 1800
+2 1 1 2200
+2 1 2 3300
+2 2 1 4100
+2 2 2 2200
+1 1 1 1800
+1 1 2 1700
+1 2 1 1600
+1 2 2 4800
+2 1 1 3600
+2 1 2 2900
+2 2 1 2700
+2 2 2 4100
+end data. 
+
+value labels age30 1 'below 30 years' 2 'over 30 years' /gender 1 'men' 2 'women' /kids 1 'having kids' 2 'not having kids'.
+
+string combined (a3).
+compute combined = concat( string(age30,f1.0), string(gender,f1.0), string(kids,f1.0) ).
+means income by combined.

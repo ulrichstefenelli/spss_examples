@@ -1,0 +1,33 @@
+
+* Story: A researcher wants to count special occurrences of words in text patients deliver. 
+* For example he wants to count symptoms dizzyness, nausea, and pain (I really worked 
+* on data like this).
+
+* Basic Idea: The identification of certain text passages in huge datasets with the index- 
+* function is sometimes very easy so you can count how often events occur.
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Press Ctrl r to run the syntax.
+
+data list fixed /subject 1 comments 2-60 (a).
+begin data
+1 no symptoms
+2 I had nausea,dizzyness and had pain.
+3 no occurrences
+4 nausea
+5 none
+6 none
+7 none
+8 I suffered great pain.
+end data.
+list.
+
+compute nausea = index(upcase(comments),'NAUS').
+compute dizzy  = index(upcase(comments),'DIZZ').
+compute pain   = index(upcase(comments),'PAIN').
+recode nausea dizzy pain (1 thru hi=1).
+frequencies nausea dizzy pain .
+

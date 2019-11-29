@@ -1,0 +1,39 @@
+
+' Story: Sometimes a programming language like SPSS's Sax Basic provides better alternatives,
+' or is at least more time saving. I know that running a simple loop is an overkill with sax basic.
+' But it could be much more complicated. So in my opinion sax basic often helps.
+
+' Basic idea: I often write programs in sax basic, and often syntax functions are needed (like save outfile
+' or get file). The lines below show how to run a chisquare test repeatedly.
+
+' What To Do With this example.
+' 1. Open In SPSS menu file|New|script a New window.
+' 2. Copy this example into that window.
+' 3. Press F5 To run the script.
+
+
+Sub Main
+	br = Chr(10)
+	With objSpssApp
+		.ExecuteCommands "data list free /subject group categ1 categ2 categ3 categ4." + br + _
+		                 "begin data." + br + _
+		                 " 1 1 0 1 1 0"  + br + _
+		                 " 2 1 1 0 0 1"  + br + _
+		                 " 3 1 1 0 1 0"  + br + _
+		                 " 4 1 1 1 0 1"  + br + _
+		                 " 5 2 1 0 1 0"  + br + _
+		                 " 6 2 1 1 0 1"  + br + _
+		                 " 7 2 0 1 0 0"  + br + _
+		                 " 8 2 1 1 0 1"  + br + _
+		                 " 9 2 1 1 0 0"  + br + _
+		                 "10 2 0 0 1 1"  + br + _
+		                 "11 2 1 1 0 0"  + br + _
+		                 "12 2 0 0 1 1"  + br + _
+		                 "end data."  + br + _
+				 "list.",True
+		'runs 4 chisquare or fisher-yates-tests for the columns categ1 to categ4
+		For i=1 To 4
+	    	    .ExecuteCommands "cross group by categ" & i &  " /stat chi.", False
+		Next
+	End With
+End Sub

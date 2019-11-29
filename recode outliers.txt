@@ -1,0 +1,32 @@
+
+* Story: A researcher wants to check a list of data columns if there are outliers.
+* An example with blood pressure data is used.
+* In this example blood pressure values below 50 or over 350 are considered as artifacts, i.e.
+* data which have to be rechecked.
+
+* Basic Idea: The idea is checking many columns in a loop using the vector command and setting
+* outlier data to missing (i.e. impossible values due to entry errors or measurement artifacts).
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Press Ctrl r to run the syntax.
+
+data list fred /subject press1 press2 press3.
+begin data
+ 1 360 120 140
+ 2 140  60  45
+ 3 130  45 360
+ 4 220 140 420
+ 5 180 120 130
+end data.
+
+list.
+
+vector press = press1 to press3.
+loop i=1 to 3.
+	if press(i)<50 or press(i)>350 press(i)=$sysmis.
+end loop.
+
+list.

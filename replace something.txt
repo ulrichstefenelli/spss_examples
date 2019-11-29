@@ -1,0 +1,74 @@
+
+* Story: A researcher has collected text data.
+* He notices some typing errors which he wants to replace. 
+
+* Basic Idea: Data replacement is very complicated with SPSS compared to Winword or Excel. 
+* You should use one of these examples if there is no better or easier way to replace a character.
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Press Ctrl r to run the syntax.
+
+
+*********I think there are 3 possibilities....*****************.
+
+****replace a special character in a string********************.
+DATA List Fixed /ZZ0 1-40 (A).
+Begin data.
+Gg-01-04-05-7-
+Hv-4-7-9-11-12-13-
+Gg-5-8-99-111-13-17-18-
+End Data.
+
+loop i=1 to length (zz0).
+    if (substr(zz0,i,1)='-') zz0=Concat(substr(zz0,1,i-1),substr(zz0,i+1)).
+end loop.
+list.
+
+
+****replaces characters of each length in a string**************.
+data list free /text (a5). 
+begin data.
+'&abcd'
+'e&gh&'
+'jk&mn'
+'o&q&s'
+'tuvw&'
+end data. 
+
+string oldstr newstr newtext (a10).
+comp oldstr = '&'.
+comp newstr = './.'.
+
+comp newtext = text.
+loop.
+	comp pos = index(newtext,rtrim(oldstr)).
+	if pos>0 newtext = concat(substr(newtext,1,pos-1), rtrim(newstr), substr(newtext,pos+1)  ).
+end loop if pos=0.
+list.
+
+
+
+
+************same as above but as macro*******************************.
+
+data list free /mytext (a25). 
+begin data.
+'&abcd'
+'e&gh&'
+'jk&mn'
+'o&q&s'
+'tuvw&'
+end data. 
+
+define !replace(textvar=!tokens(1)/ oldstr=!tokens(1) / newstr=!tokens(1) ).
+	loop.
+		comp found = index(!textvar,!oldstr).
+		if found>0 !textvar = concat(substr(!textvar,1,found-1), !newstr, substr(!textvar,found+1)  ).
+	end loop if found=0.
+	exec.
+!enddefine.
+
+!replace textvar=mytext  oldstr='&' newstr='1234'.

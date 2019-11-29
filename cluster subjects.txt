@@ -1,0 +1,25 @@
+
+* Story: A researcher asks his study participants to give evaluations on five scales.
+* At the end of the study he wants to cluster his subjects.
+
+* Basic Idea: The idea to identify groups in raw data is very popular.
+* But note there are many possibilities to cluster subjects, 
+* and classical cluster analyses are only one possibilty
+* and results often depend upon the statistican due to many, many available options.
+
+* What to do with this example.
+* 1. Open in SPSS menu file|new|syntax a new window.
+* 2. Copy this example into that window.
+* 3. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 4. Press Ctrl r to run the syntax.
+
+data list fred /subject a b c d e.
+begin data
+1  1  2  3  4  5
+2 10 12 11 12 11
+3  1  2  2  3  4
+4 10 13 12 12 10
+end data.
+cluster a b c d e /plot dendrogram /measure seuclid /method ward.
+
+

@@ -1,0 +1,27 @@
+
+' Story: If need to know the number of variables there is a way to count them.
+
+' Basic idea: I needed this function to write a small syntax programm that works like this (look at the *):
+' save out 'c:\temp.sav /drop tmp*.
+' which drops all variables beginning with tmp.
+
+' What To Do With this example.
+' 1. Open In SPSS menu file|New|script a New window.
+' 2. Copy this example into that window.
+' 3. Press F5 To run the script.
+
+Sub Main
+	br = Chr(10)
+	With objSpssApp
+		.ExecuteCommands "data list free /group sex age height weight." + br + _
+		                 "begin data." + br + _
+		                 "1 2 32 188 95"  + br + _
+		                 "2 1 44 148 75"  + br + _
+		                 "3 1 57 168 55"  + br + _
+		                 "end data."  + br + _
+						 "list.",True
+		MsgBox "I found " & .SpssInfo.NumVariables & " variables in your data editor...."
+	End With
+End Sub
+
+

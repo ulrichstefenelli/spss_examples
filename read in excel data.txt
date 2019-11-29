@@ -1,0 +1,23 @@
+
+* Story: A researcher has entered all his data into an excel spreadsheet.
+* He has column headers in the first line and he now wants to move all his data to SPSS.
+* How can he manage it?.
+
+* Basic Idea: There are many possibilities. The idea is to save the excel data as tab delimited data 
+* (use menu file|save as and save as text in a folder under C:\temp\text.dat for example). 
+
+* What to do now.
+* 1. Save your data as text data using the excel menu file|save as format text.
+* 2. Open in SPSS menu file|new|syntax a new window.
+* 3. Copy all of this example into that window.
+* 4. Note this example assumes your data is saved as text in  c:\temp\text.dat and the 
+*    first line of the data contains field names, like age, gender, birthday or similar abbreviations
+*    (8 characters at maximum, without blanks and special characters).
+* 5. Mark everything (SPSS menue edit|select all or press Ctrl a).
+* 6. Press Ctrl r to run the syntax.
+* 7. Look into the output.
+
+get translate file 'c:\temp\text.dat' /type tab /fieldnames.
+list all.
+
+* 8. Look at your data and check the beginning and the end of data.
