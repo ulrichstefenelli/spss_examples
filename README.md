@@ -1,2 +1,5 @@
-# spss_examples
-run SPSS examples, use them for your own project
+# free Examples of SPSS syntax
+
+free SPSS examples
+
+run SPSS snippets, use them for your own project
